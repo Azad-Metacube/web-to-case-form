@@ -2,59 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Web-to-Case Form</title>
+  <title>Compact Web-to-Case Form</title>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
   <script src="https://www.google.com/recaptcha/api.js"></script>
   <style>
-    html, body {
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
       margin: 0;
       padding: 0;
-      height: 100vh;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
-    }
-    .form-wrapper {
-      height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 10px;
-      box-sizing: border-box;
+      align-items: center;
+      height: 100vh;
     }
+
     form {
       background-color: #ffffff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      width: 100%;
-      max-height: 100%;
-      overflow: auto;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 480px;
+      box-sizing: border-box;
+      font-size: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
+
     label {
       font-weight: bold;
-      margin-top: 10px;
-      display: block;
     }
+
     input[type="text"],
-    textarea,
-    select {
+    select,
+    textarea {
       width: 100%;
-      padding: 8px;
-      margin-top: 4px;
-      margin-bottom: 16px;
+      padding: 6px 8px;
+      font-size: 14px;
       border: 1px solid #ccc;
-      border-radius: 6px;
+      border-radius: 4px;
       box-sizing: border-box;
     }
+
+    textarea {
+      min-height: 50px;
+      resize: vertical;
+    }
+
+    .g-recaptcha {
+      transform: scale(0.85);
+      transform-origin: 0 0;
+    }
+
     input[type="submit"] {
       background-color: #007bff;
       color: white;
-      padding: 10px 20px;
       border: none;
-      border-radius: 6px;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 4px;
       cursor: pointer;
     }
+
     input[type="submit"]:hover {
       background-color: #0056b3;
     }
@@ -73,42 +83,46 @@
 </head>
 <body>
 
-<div class="form-wrapper">
-  <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Dd200000D6fp0" method="POST">
-    <input type="hidden" name="captcha_settings" value='{"keyname":"reCaptchaKey","fallback":"true","orgId":"00Dd200000D6fp0","ts":""}'>
-    <input type="hidden" name="orgid" value="00Dd200000D6fp0">
-    <input type="hidden" name="retURL" value="http://successpage.com">
+<form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Dd200000D6fp0" method="POST">
 
-    <label for="name">Contact Name</label>
-    <input id="name" maxlength="80" name="name" size="20" type="text" required>
+  <input type="hidden" name="captcha_settings" value='{"keyname":"reCaptchaKey","fallback":"true","orgId":"00Dd200000D6fp0","ts":""}'>
+  <input type="hidden" name="orgid" value="00Dd200000D6fp0">
+  <input type="hidden" name="retURL" value="http://successpage.com">
 
-    <label for="email">Email</label>
-    <input id="email" maxlength="80" name="email" size="20" type="text" required>
+  <!-- Optional debugging (commented out) -->
+  <!-- <input type="hidden" name="debug" value=1> -->
+  <!-- <input type="hidden" name="debugEmail" value="thalor2ait@gmail.com"> -->
 
-    <label for="subject">Subject</label>
-    <input id="subject" maxlength="80" name="subject" size="20" type="text" required>
+  <label for="name">Contact Name</label>
+  <input id="name" maxlength="80" name="name" size="20" type="text" required>
 
-    <label for="description">Description</label>
-    <textarea name="description" required></textarea>
+  <label for="email">Email</label>
+  <input id="email" maxlength="80" name="email" size="20" type="text" required>
 
-    <label for="type">Type</label>
-    <select id="type" name="type" required>
-      <option value="">--None--</option>
-      <option value="Online">Online</option>
-      <option value="Oncampus">Oncampus</option>
-    </select>
+  <label for="subject">Subject</label>
+  <input id="subject" maxlength="80" name="subject" size="20" type="text" required>
 
-    <label for="recordType">Case Record Type</label>
-    <select id="recordType" name="recordType" required>
-      <option value="">--None--</option>
-      <option value="012d200000333m1">Application Document Check</option>
-      <option value="012d200000332tB">Job Search Support</option>
-    </select>
+  <label for="description">Description</label>
+  <textarea name="description" required></textarea>
 
-    <div class="g-recaptcha" data-sitekey="6LewhVMrAAAAAD86vHSrN6yrFPuAe4yGRDhDVykb"></div><br>
-    <input type="submit" name="submit" value="Submit Case">
-  </form>
-</div>
+  <label for="type">Type</label>
+  <select id="type" name="type" required>
+    <option value="">--None--</option>
+    <option value="Online">Online</option>
+    <option value="Oncampus">Oncampus</option>
+  </select>
+
+  <label for="recordType">Case Record Type</label>
+  <select id="recordType" name="recordType" required>
+    <option value="">--None--</option>
+	<option value="012d200000332tB">Job Search Support</option>
+    <option value="012d200000333m1">Application Document Check</option>
+  </select>
+
+  <div class="g-recaptcha" data-sitekey="6LewhVMrAAAAAD86vHSrN6yrFPuAe4yGRDhDVykb"></div>
+
+  <input type="submit" name="submit" value="Submit">
+</form>
 
 </body>
 </html>
