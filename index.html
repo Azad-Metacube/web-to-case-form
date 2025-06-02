@@ -72,18 +72,28 @@
   <script>
     function timestamp() {
       var response = document.getElementById("g-recaptcha-response");
-      if (response == null || response.value.trim() == "") {
+      if (response == null || response.value.trim() === "") {
         var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
         elems["ts"] = JSON.stringify(new Date().getTime());
         document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
       }
     }
     setInterval(timestamp, 500);
+
+    function validateCaptcha(event) {
+      var captchaResponse = grecaptcha.getResponse();
+      if (captchaResponse.length === 0) {
+        alert("Please complete the reCAPTCHA before submitting.");
+        event.preventDefault();
+        return false;
+      }
+      return true;
+    }
   </script>
 </head>
 <body>
 
-<form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Dd200000D6fp0" method="POST">
+<form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Dd200000D6fp0" method="POST" onsubmit="return validateCaptcha(event);">
 
   <input type="hidden" name="captcha_settings" value='{"keyname":"reCaptchaKey","fallback":"true","orgId":"00Dd200000D6fp0","ts":""}'>
   <input type="hidden" name="orgid" value="00Dd200000D6fp0">
@@ -115,7 +125,7 @@
   <label for="recordType">Case Record Type</label>
   <select id="recordType" name="recordType" required>
     <option value="">--None--</option>
-	<option value="012d200000332tB">Job Search Support</option>
+    <option value="012d200000332tB">Job Search Support</option>
     <option value="012d200000333m1">Application Document Check</option>
   </select>
 
