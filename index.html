@@ -1,46 +1,98 @@
-<!--  ----------------------------------------------------------------------  -->
-<!--  NOTE: Please add the following <META> element to your page <HEAD>.      -->
-<!--  If necessary, please modify the charset parameter to specify the        -->
-<!--  character set of your HTML page.                                        -->
-<!--  ----------------------------------------------------------------------  -->
-
-<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
- function timestamp() { var response = document.getElementById("g-recaptcha-response"); if (response == null || response.value.trim() == "") {var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); } } setInterval(timestamp, 500); 
-</script>
-
-<!--  ----------------------------------------------------------------------  -->
-<!--  NOTE: Please add the following <FORM> element to your page.             -->
-<!--  ----------------------------------------------------------------------  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Improved Web-to-Case Form</title>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f8f9fa;
+    }
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <script>
+    function timestamp() {
+      var response = document.getElementById("g-recaptcha-response");
+      if (response == null || response.value.trim() == "") {
+        var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
+        elems["ts"] = JSON.stringify(new Date().getTime());
+        document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+      }
+    }
+    setInterval(timestamp, 500);
+  </script>
+</head>
+<body>
 
 <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Dd200000D6fp0" method="POST">
+  <input type="hidden" name="captcha_settings" value='{"keyname":"reCaptchaKey","fallback":"true","orgId":"00Dd200000D6fp0","ts":""}'>
+  <input type="hidden" name="orgid" value="00Dd200000D6fp0">
+  <input type="hidden" name="retURL" value="http://successpage.com">
 
-<input type=hidden name='captcha_settings' value='{"keyname":"reCaptchaKey","fallback":"true","orgId":"00Dd200000D6fp0","ts":""}'>
-<input type=hidden name="orgid" value="00Dd200000D6fp0">
-<input type=hidden name="retURL" value="http://successpage.com">
+  <label for="name">Contact Name</label>
+  <input id="name" maxlength="80" name="name" size="20" type="text" required>
 
-<!--  ----------------------------------------------------------------------  -->
-<!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
-<!--  these lines if you wish to test in debug mode.                          -->
-<!--  <input type="hidden" name="debug" value=1>                              -->
-<!--  <input type="hidden" name="debugEmail" value="thalor2ait@gmail.com">    -->
-<!--  ----------------------------------------------------------------------  -->
+  <label for="email">Email</label>
+  <input id="email" maxlength="80" name="email" size="20" type="text" required>
 
-<label for="name">Contact Name</label><input  id="name" maxlength="80" name="name" size="20" type="text" /><br>
+  <label for="subject">Subject</label>
+  <input id="subject" maxlength="80" name="subject" size="20" type="text" required>
 
-<label for="email">Email</label><input  id="email" maxlength="80" name="email" size="20" type="text" /><br>
+  <label for="description">Description</label>
+  <textarea name="description" required></textarea>
 
-<label for="subject">Subject</label><input  id="subject" maxlength="80" name="subject" size="20" type="text" /><br>
+  <label for="type">Type</label>
+  <select id="type" name="type" required>
+    <option value="">--None--</option>
+    <option value="Online">Online</option>
+    <option value="Oncampus">Oncampus</option>
+  </select>
 
-<label for="description">Description</label><textarea name="description"></textarea><br>
+  <label for="recordType">Case Record Type</label>
+  <select id="recordType" name="recordType" required>
+    <option value="">--None--</option>
+       <option value="012d200000332tB">Job Search Support</option>
+       <option value="012d200000333m1">Application Document Check</option>
+  </select>
 
-<label for="type">Type</label><select  id="type" name="type"><option value="">--None--</option>
-<option value="Online">Online</option>
-<option value="Oncampus">Oncampus</option>
-</select><br>
-
-<div class="g-recaptcha" data-sitekey="6LewhVMrAAAAAD86vHSrN6yrFPuAe4yGRDhDVykb"></div><br>
-<input type="submit" name="submit">
-
+  <div class="g-recaptcha" data-sitekey="6LewhVMrAAAAAD86vHSrN6yrFPuAe4yGRDhDVykb"></div><br>
+  <input type="submit" name="submit" value="Submit Case">
 </form>
+
+</body>
+</html>
