@@ -1,33 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Submit a Case</title>
-</head>
-<body>
-  <h2>Contact Support</h2>
-  <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8" method="POST">
-    <input type="hidden" name="orgid" value="YOUR_ORG_ID_HERE">
-    <input type="hidden" name="retURL" value="https://yourdomain.com/thank-you.html">
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: Please add the following <META> element to your page <HEAD>.      -->
+<!--  If necessary, please modify the charset parameter to specify the        -->
+<!--  character set of your HTML page.                                        -->
+<!--  ----------------------------------------------------------------------  -->
 
-    <label for="name">Name:</label><br>
-    <input type="text" name="name"><br><br>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+ function timestamp() { var response = document.getElementById("g-recaptcha-response"); if (response == null || response.value.trim() == "") {var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); } } setInterval(timestamp, 500); 
+</script>
 
-    <label for="email">Email:</label><br>
-    <input type="email" name="email"><br><br>
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: Please add the following <FORM> element to your page.             -->
+<!--  ----------------------------------------------------------------------  -->
 
-    <label for="subject">Subject:</label><br>
-    <input type="text" name="subject"><br><br>
+<form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Dd200000D6fp0" method="POST">
 
-    <label for="description">Description:</label><br>
-    <textarea name="description" rows="5" cols="40"></textarea><br><br>
+<input type=hidden name='captcha_settings' value='{"keyname":"reCaptchaKey","fallback":"true","orgId":"00Dd200000D6fp0","ts":""}'>
+<input type=hidden name="orgid" value="00Dd200000D6fp0">
+<input type=hidden name="retURL" value="http://successpage.com">
 
-    <label for="type">Type:</label><br>
-    <select name="00NXXXXXXXXXXXX"> <!-- Replace with your custom field ID -->
-      <option value="Online">Online</option>
-      <option value="OnCampus">OnCampus</option>
-    </select><br><br>
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+<!--  these lines if you wish to test in debug mode.                          -->
+<!--  <input type="hidden" name="debug" value=1>                              -->
+<!--  <input type="hidden" name="debugEmail" value="thalor2ait@gmail.com">    -->
+<!--  ----------------------------------------------------------------------  -->
 
-    <input type="submit" value="Submit Case">
-  </form>
-</body>
-</html>
+<label for="name">Contact Name</label><input  id="name" maxlength="80" name="name" size="20" type="text" /><br>
+
+<label for="email">Email</label><input  id="email" maxlength="80" name="email" size="20" type="text" /><br>
+
+<label for="subject">Subject</label><input  id="subject" maxlength="80" name="subject" size="20" type="text" /><br>
+
+<label for="description">Description</label><textarea name="description"></textarea><br>
+
+<label for="type">Type</label><select  id="type" name="type"><option value="">--None--</option>
+<option value="Online">Online</option>
+<option value="Oncampus">Oncampus</option>
+</select><br>
+
+<div class="g-recaptcha" data-sitekey="6LewhVMrAAAAAD86vHSrN6yrFPuAe4yGRDhDVykb"></div><br>
+<input type="submit" name="submit">
+
+</form>
